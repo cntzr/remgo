@@ -3,9 +3,9 @@ package parser
 import (
 	"fmt"
 
-	"github.com/cntzr/remind-go/ast"
-	"github.com/cntzr/remind-go/lexer"
-	"github.com/cntzr/remind-go/token"
+	"github.com/cntzr/remgo/ast"
+	"github.com/cntzr/remgo/lexer"
+	"github.com/cntzr/remgo/token"
 )
 
 type (

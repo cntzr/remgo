@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cntzr/remind-go/ast"
-	"github.com/cntzr/remind-go/lexer"
+	"github.com/cntzr/remgo/ast"
+	"github.com/cntzr/remgo/lexer"
 )
 
 type remStructure struct {

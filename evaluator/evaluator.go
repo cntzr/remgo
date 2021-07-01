@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cntzr/remind-go/ast"
-	"github.com/cntzr/remind-go/object"
-	"github.com/cntzr/remind-go/timeframe"
+	"github.com/cntzr/remgo/ast"
+	"github.com/cntzr/remgo/object"
+	"github.com/cntzr/remgo/timeframe"
 )
 
 func Eval(node ast.Node, env *object.Environment) object.Object {

@@ -7,7 +7,7 @@ import (
 	"os"
 	"unicode"
 
-	"github.com/cntzr/remind-go/token"
+	"github.com/cntzr/remgo/token"
 )
 
 type (

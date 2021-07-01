@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cntzr/remind-go/token"
+	"github.com/cntzr/remgo/token"
 )
 
 func TestNextToken(t *testing.T) {

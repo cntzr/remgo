@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cntzr/remind-go/object"
+	"github.com/cntzr/remgo/object"
 )
 
 type (

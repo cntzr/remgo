@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"github.com/cntzr/remind-go/token"
+	"github.com/cntzr/remgo/token"
 )
 
 type (
