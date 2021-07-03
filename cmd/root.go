@@ -20,7 +20,7 @@ var (
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
 		Use:   "remgo",
-		Short: "calendar and reminder CLI",
+		Short: "calendar and reminder with CLI",
 		Long: `remgo simply manages dates. It uses a CLI
 and offers overviews of appointments for single days
 or periods. The default output goes to a terminal with
@@ -47,7 +47,7 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ~/.config/remgo/config.yaml)")
 	rootCmd.PersistentFlags().StringVar(&dataDir, "data-dir", "~/.reminders", "data directory for reminder files (default is ~/.reminders)")
-	rootCmd.PersistentFlags().StringVar(&langMsg, "language", "", "language for messages (default is en")
+	rootCmd.PersistentFlags().StringVar(&langMsg, "language", "", "language for messages (de|en), default is en")
 	rootCmd.PersistentFlags().BoolVarP(&dbgMode, "debug", "", false, "debug mode, default is off")
 
 	// i18n support >>

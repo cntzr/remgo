@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"time"
 
 	"github.com/cntzr/remgo/evaluator"
 	"github.com/cntzr/remgo/lexer"
@@ -16,24 +17,38 @@ import (
 )
 
 var (
+	showToday    = false
+	showNextWeek = false
+
 	// showCmd represents the show command
 	showCmd = &cobra.Command{
 		Use:   "show",
-		Short: "Shows dates for today",
-		Long: `Shows dates for today (later also for a specific day or a period).
+		Short: "Shows dates, default period is current week",
+		Long: `Shows dates, default period is current week. Support for a 
+specific day, next week or specific periods is coming soon.
 Output is colored by default.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			// Color styles for pterm
-			headerStyle := pterm.NewStyle(pterm.FgGreen, pterm.BgDefault, pterm.Bold)
-			dayStyle := pterm.NewStyle(pterm.FgLightYellow, pterm.BgDefault, pterm.Bold)
-			eventStyle := pterm.NewStyle(pterm.FgGray, pterm.BgDefault)
-			// shows the current week per default
-			from := timeframe.FirstDayOfWeek()
-			until := timeframe.LastDayOfWeek()
-			/*
-				from := timeframe.Date(time.Now().Year(), int(time.Now().Month()), time.Now().Day())
-				until := from.AddDate(0, 0, 5)
-			*/
+			headerStyle := pterm.NewStyle(pterm.FgGreen, pterm.Italic)
+			dayStyle := pterm.NewStyle(pterm.FgLightYellow, pterm.Italic)
+			todayStyle := pterm.NewStyle(pterm.FgLightRed, pterm.Italic)
+			eventStyle := pterm.NewStyle(pterm.FgGray)
+
+			date := time.Now()
+			// show the whole current week per default
+			from := timeframe.FirstDayOfWeek(date)
+			until := timeframe.LastDayOfWeek(date)
+			if showToday {
+				// show only today & tomorrow
+				from = time.Now()
+				until = from.AddDate(0, 0, 1)
+			} else if showNextWeek {
+				// show whole next week
+				date = time.Now().AddDate(0, 0, 7)
+				from = timeframe.FirstDayOfWeek(date)
+				until = timeframe.LastDayOfWeek(date)
+			}
+
 			t := timeframe.NewTimeFrame(from, until)
 
 			files, err := os.ReadDir(dataDir)
@@ -77,7 +92,11 @@ Output is colored by default.`,
 			headerStyle.Println(header)
 			for _, day := range days {
 				events := make([]string, 0)
-				dayStyle.Printf("\n%s\n", t.Days[day].Date.Format("02.01.2006"))
+				if timeframe.SameDay(time.Now(), t.Days[day].Date) {
+					todayStyle.Printf("\n%s\n", t.Days[day].Date.Format("02.01.2006"))
+				} else {
+					dayStyle.Printf("\n%s\n", t.Days[day].Date.Format("02.01.2006"))
+				}
 				for _, e := range t.Days[day].Events {
 					time := ""
 					if e.From != "" {
@@ -103,6 +122,8 @@ Output is colored by default.`,
 func init() {
 	rootCmd.AddCommand(showCmd)
 
+	showCmd.PersistentFlags().BoolVarP(&showToday, "today", "t", false, "Shows events for today & tomorrow only")
+	showCmd.PersistentFlags().BoolVarP(&showNextWeek, "nextweek", "n", false, "Shows events for the upcoming week")
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command

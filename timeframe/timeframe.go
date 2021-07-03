@@ -155,10 +155,9 @@ func SameDay(date1, date2 time.Time) bool {
 func betweenDays(date, bottom, top time.Time) bool {
 	return (bottom.Before(date) || SameDay(date, bottom)) && (top.After(date) || SameDay(date, top))
 }
-
-func FirstDayOfWeek() time.Time {
-	date := Date(time.Now().Year(), int(time.Now().Month()), time.Now().Day())
-	if time.Now().Weekday().String() == "Monday" { // today is Monday
+func FirstDayOfWeek(d time.Time) time.Time {
+	date := Date(d.Year(), int(d.Month()), d.Day())
+	if d.Weekday().String() == "Monday" { // day is Monday
 		return date
 	}
 	for date.Weekday().String() != "Monday" {
@@ -167,9 +166,9 @@ func FirstDayOfWeek() time.Time {
 	return date
 }
 
-func LastDayOfWeek() time.Time {
-	date := Date(time.Now().Year(), int(time.Now().Month()), time.Now().Day())
-	if time.Now().Weekday().String() == "Sunday" { // today is Sunday
+func LastDayOfWeek(d time.Time) time.Time {
+	date := Date(d.Year(), int(d.Month()), d.Day())
+	if d.Weekday().String() == "Sunday" { // day is Sunday
 		return date
 	}
 	for date.Weekday().String() != "Sunday" {
