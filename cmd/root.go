@@ -1,12 +1,13 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/spf13/cobra"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"golang.org/x/text/message/catalog"
 
-	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
@@ -69,7 +70,7 @@ func init() {
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
 	// Find home directory.
-	home, err := homedir.Dir()
+	home, err := os.UserHomeDir()
 	cobra.CheckErr(err)
 
 	if cfgFile != "" {
