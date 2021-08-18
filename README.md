@@ -12,11 +12,12 @@ These are the implemented features so far ...
 * processing of basic REM constructs
 * processing of the AT and DURATION attributes
 * colorized output in terminals
-* simple output for postprocessing e.g. via mail
 * output for ...
   * today
   * a week
   * next week
+
+There's just one ToDo for the moment. I'm still missing a simple output for postprocessing e.g. via mail. Should be done in a few weeks.
 
 ## Install
 
@@ -25,7 +26,7 @@ These are the implemented features so far ...
 * clone the repository
 * move to the created directory
 * run ```go install```
-* on Linux copy the _sample.yaml_ to _~/.config/remgo/config.yaml_ and change it to your requirements
+* copy the _sample.yaml_ to _~/.config/remgo/config.yaml_ and change it to your requirements
 
 ### Windows
 
