@@ -17,15 +17,16 @@ import (
 )
 
 var (
-	showToday    = false
-	showNextWeek = false
+	showToday       = false
+	showTomorrow    = false
+	showCurrentWeek = false
+	showNextWeek    = false
 
 	gray   = lipgloss.AdaptiveColor{Light: "#C2C2A3", Dark: "#7A7A52"}
 	subtle = lipgloss.AdaptiveColor{Light: "#C2D6D6", Dark: "#527A7A"}
 	yellow = lipgloss.AdaptiveColor{Light: "#EBEBE0", Dark: "#B8B894"}
 	green  = lipgloss.AdaptiveColor{Light: "#99CC00", Dark: "#739900"}
 	red    = lipgloss.AdaptiveColor{Light: "#CC0000", Dark: "#AC3939"}
-	//red   = lipgloss.AdaptiveColor{Light: "#CC0000", Dark: "#732626"}
 
 	headerStyle = lipgloss.NewStyle().Foreground(green).Italic(true)
 	dayStyle    = lipgloss.NewStyle().Foreground(yellow).Italic(true)
@@ -41,33 +42,36 @@ var (
 	// showCmd represents the show command
 	showCmd = &cobra.Command{
 		Use:   "show",
-		Short: "Shows dates, default period is current week",
-		Long: `Shows dates, default period is current week. Support for a 
-specific day, next week or specific periods is coming soon.
+		Short: "Shows dates, default is today",
+		Long: `Shows dates, default is today. Support for a 
+specific day or specific periods maybe coming later.
 Output is colored by default.`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Color styles for pterm
-			/*
-				headerStyle := pterm.NewStyle(pterm.FgGreen, pterm.Italic)
-				dayStyle := pterm.NewStyle(pterm.FgLightYellow, pterm.Italic)
-				todayStyle := pterm.NewStyle(pterm.FgLightRed, pterm.Italic)
-				eventStyle := pterm.NewStyle(pterm.FgGray)
-			*/
-
-			date := time.Now()
-			// show the whole current week per default
-			from := timeframe.FirstDayOfWeek(date)
-			until := timeframe.LastDayOfWeek(date)
-			if showToday {
-				// show only today & tomorrow
-				from = time.Now()
-				until = from.AddDate(0, 0, 1)
-			} else if showNextWeek {
-				// show whole next week
-				date = time.Now().AddDate(0, 0, 7)
-				from = timeframe.FirstDayOfWeek(date)
-				until = timeframe.LastDayOfWeek(date)
-			}
+			today := time.Now()
+			from := today
+			until := today
+			switch true {
+			case showToday:
+				// show events for today only
+				// time limits are already set
+			case showTomorrow:
+				// show events for today & tomorrow
+				from = today
+				until = today.AddDate(0, 0, 1)
+			case showCurrentWeek:
+				// show events for the current week
+				from = timeframe.FirstDayOfWeek(today)
+				until = timeframe.LastDayOfWeek(today)
+			case showNextWeek:
+				// show events for the next week
+				today = today.AddDate(0, 0, 7)
+				from = timeframe.FirstDayOfWeek(today)
+				until = timeframe.LastDayOfWeek(today)
+			default:
+				// show the whole current week per default
+				from = timeframe.FirstDayOfWeek(today)
+				until = timeframe.LastDayOfWeek(today)
+			} // END of switch true
 
 			t := timeframe.NewTimeFrame(from, until)
 
@@ -149,7 +153,9 @@ Output is colored by default.`,
 func init() {
 	rootCmd.AddCommand(showCmd)
 
-	showCmd.PersistentFlags().BoolVarP(&showToday, "today", "t", false, "Shows events for today & tomorrow only")
+	showCmd.PersistentFlags().BoolVarP(&showToday, "today", "t", false, "Shows events for today")
+	showCmd.PersistentFlags().BoolVarP(&showTomorrow, "tomorrow", "m", false, "Shows events for today & tomorrow")
+	showCmd.PersistentFlags().BoolVarP(&showCurrentWeek, "currentweek", "c", false, "Shows events for the current week")
 	showCmd.PersistentFlags().BoolVarP(&showNextWeek, "nextweek", "n", false, "Shows events for the upcoming week")
 	// Here you will define your flags and configuration settings.
 

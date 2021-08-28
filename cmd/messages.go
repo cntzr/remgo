@@ -16,6 +16,8 @@ var entries = [...]entry{
 	{"de", "Reading from file: %s\n", "Lesen aus Datei: %s\n"},
 	{"en", "\nEvents from %s - %s", "\nEvents from %s - %s"},
 	{"de", "\nEvents from %s - %s", "\nTermine vom %s - %s"},
+	{"en", "Events for %s", "Events for %s"},
+	{"de", "Events for %s", "Termine für den %s"},
 	{"en", "Using config file: %s\n", "Using config file: %s\n"},
 	{"de", "Using config file: %s\n", "Konfiguration eingelesen: %s\n"},
 	{"en", "Reading from data directory: %s\n", "Reading from data directory: %s\n"},

@@ -4,7 +4,7 @@ Since I'm running a personal computer - somewhere in the early nineties of last 
 
 ## Features
 
-These are the implemented features so far ...
+These are the features implemented so far ...
 
 * CLI
 * separate configuration via _~/.config/remgo/config.yaml_
@@ -14,10 +14,10 @@ These are the implemented features so far ...
 * colorized output in terminals
 * output for ...
   * today
-  * a week
+  * today & tomorrow
+  * current week
   * next week
-
-There's just one ToDo for the moment. I'm still missing a simple output for postprocessing e.g. via mail. Should be done in a few weeks.
+* plain output for postprocessing via mail
 
 ## Install
 
@@ -28,6 +28,6 @@ There's just one ToDo for the moment. I'm still missing a simple output for post
 * run ```go install```
 * copy the _sample.yaml_ to _~/.config/remgo/config.yaml_ and change it to your requirements
 
-### Windows
+### Windows & Mac
 
-* installation on Windows not tried so far
+* installation on both OS not tried so far
