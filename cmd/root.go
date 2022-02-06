@@ -28,9 +28,6 @@ or periods. The default output goes to a terminal with
 color support. for future releases it will generate plain 
 output for mail exchange, too. It makes a nice figure as 
 part of pipes supporting at least stdout.`,
-		// Uncomment the following line if your bare application
-		// has an action associated with it:
-		// Run: func(cmd *cobra.Command, args []string) { },
 	}
 )
 

@@ -22,20 +22,19 @@ var (
 	showCurrentWeek = false
 	showNextWeek    = false
 
-	gray   = lipgloss.AdaptiveColor{Light: "#C2C2A3", Dark: "#7A7A52"}
-	subtle = lipgloss.AdaptiveColor{Light: "#C2D6D6", Dark: "#527A7A"}
-	yellow = lipgloss.AdaptiveColor{Light: "#EBEBE0", Dark: "#B8B894"}
-	green  = lipgloss.AdaptiveColor{Light: "#99CC00", Dark: "#739900"}
-	red    = lipgloss.AdaptiveColor{Light: "#CC0000", Dark: "#AC3939"}
-
-	headerStyle = lipgloss.NewStyle().Foreground(green).Italic(true)
-	dayStyle    = lipgloss.NewStyle().Foreground(yellow).Italic(true)
-	todayStyle  = lipgloss.NewStyle().Foreground(red).Italic(true)
-	eventStyle  = lipgloss.NewStyle().Foreground(gray)
-	allDayStyle = lipgloss.NewStyle().Foreground(subtle)
+	eventColor  = lipgloss.AdaptiveColor{Light: "#C2C2A3", Dark: "#7A7A52"}
+	allDayColor = lipgloss.AdaptiveColor{Light: "#C2D6D6", Dark: "#527A7A"}
+	dayColor    = lipgloss.AdaptiveColor{Light: "#EBEBE0", Dark: "#B8B894"}
+	markerColor = lipgloss.AdaptiveColor{Light: "#99CC00", Dark: "#739900"}
+	warnColor   = lipgloss.AdaptiveColor{Light: "#CC0000", Dark: "#AC3939"}
+	headerStyle = lipgloss.NewStyle().Foreground(markerColor).Italic(true)
+	dayStyle    = lipgloss.NewStyle().Foreground(dayColor).Italic(true)
+	todayStyle  = lipgloss.NewStyle().Foreground(warnColor).Italic(true)
+	eventStyle  = lipgloss.NewStyle().Foreground(eventColor)
+	allDayStyle = lipgloss.NewStyle().Foreground(allDayColor)
 
 	checkMark = lipgloss.NewStyle().SetString("✓").
-			Foreground(green).
+			Foreground(markerColor).
 			PaddingRight(1).
 			String()
 
@@ -157,13 +156,4 @@ func init() {
 	showCmd.PersistentFlags().BoolVarP(&showTomorrow, "tomorrow", "m", false, "Shows events for today & tomorrow")
 	showCmd.PersistentFlags().BoolVarP(&showCurrentWeek, "currentweek", "c", false, "Shows events for the current week")
 	showCmd.PersistentFlags().BoolVarP(&showNextWeek, "nextweek", "n", false, "Shows events for the upcoming week")
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// showCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// showCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
